@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tanayote Foods — Order Dashboard (Test Console)</title>
+<style>
+  body { font-family: -apple-system, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 16px; margin-top: 32px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+  section { margin-bottom: 24px; }
+  input, select, button { padding: 6px 8px; margin: 4px 4px 4px 0; font-size: 14px; }
+  button { cursor: pointer; background: #2f6f4f; color: white; border: none; border-radius: 4px; padding: 6px 14px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  td, th { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; text-align: left; }
+  .summary { display: flex; gap: 16px; flex-wrap: wrap; }
+  .card { background: #f4f7f5; border-radius: 6px; padding: 10px 16px; }
+  .card b { font-size: 20px; display: block; }
+</style>
+</head>
+<body>
+<h1>🫚 Tanayote Foods — Order System (test console)</h1>
+<p>Ginger &amp; Mabuyu order intake, FIFO allocation, and dispatch — talking directly to your MongoDB Atlas cluster via Railway.</p>
+
+<h2>Dashboard</h2>
+<div class="summary" id="summary"></div>
+
+<h2>Raw Materials</h2>
+<div>
+  <input id="matName" placeholder="Material name (e.g. Ginger root)">
+  <input id="matUnit" placeholder="unit (kg)" value="kg">
+  <input id="matQty" type="number" placeholder="quantity on hand">
+  <button onclick="addMaterial()">Add material</button>
+</div>
+<table id="materialsTable"><thead><tr><th>Name</th><th>Unit</th><th>On hand</th><th>Reorder level</th></tr></thead><tbody></tbody></table>
+
+<h2>Production Batches</h2>
+<div>
+  <input id="batchCode" placeholder="Batch code (e.g. GIN-001)">
+  <select id="batchProduct"><option value="ginger">Ginger</option><option value="mabuyu">Mabuyu</option></select>
+  <input id="batchQty" type="number" placeholder="quantity produced (bottles)">
+  <button onclick="addBatch()">Record batch</button>
+</div>
+<table id="batchesTable"><thead><tr><th>Code</th><th>Product</th><th>Produced</th><th>Allocated</th><th>Available</th><th>Produced at</th></tr></thead><tbody></tbody></table>
+
+<h2>Orders</h2>
+<div>
+  <input id="custName" placeholder="Customer name">
+  <select id="orderRetailer">
+    <option value="">Manual customer</option>
+    <option value="Pick n Pay">Pick n Pay (B2B, 5-day SLA)</option>
+    <option value="Trophies">Trophies (B2B, 5-day SLA)</option>
+  </select>
+  <select id="orderProduct"><option value="ginger">Ginger</option><option value="mabuyu">Mabuyu</option></select>
+  <input id="orderQty" type="number" placeholder="quantity ordered">
+  <button onclick="addOrder()">Create order</button>
+  <button onclick="allocateAll()">Run FIFO allocation on all pending</button>
+</div>
+<table id="ordersTable"><thead><tr><th>Customer</th><th>Retailer</th><th>Product</th><th>Ordered</th><th>Allocated</th><th>Status</th><th>SLA due</th
